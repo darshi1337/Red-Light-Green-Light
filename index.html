@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pose Detection Game</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 30px;
+            margin: 20px;
+        }
+
+        img {
+            display: block;
+            margin: 0 auto;
+            border: 2px solid black;
+            width: 800px;
+            height: 600px;
+        }
+
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+    </style>
+</head>
+<body>
+    <h1>Pose Detection Game</h1>
+    <img src="{{ url_for('video_feed') }}" width="800" height="600">
+    <br>
+    <button onclick="restartGame()">Restart</button>
+
+    <script>
+        function restartGame() {
+            // Send a request to the server to restart the game
+            fetch('/restart_game')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert('Game restarted successfully!');
+                    } else {
+                        alert('Failed to restart the game.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+</body>
+</html>
